@@ -1,0 +1,45 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Clean engine",
+			"command": "Remove-Item –path ${config:buildDir} -include *.obj, *.lib, *.pdb -recurse -ErrorAction Ignore",
+			"problemMatcher": []
+		},
+		{
+			"type": "shell",
+			"label": "Compile engine",
+			"command": "cl.exe",
+			"args": [
+				"/Fo'${config:intermediateDir}\\'",
+				"/Fd'${config:buildDir}\\${config:projectName}.pdb'",
+				"/I'${config:includeDir}'",
+				"'${config:sourceDir}\\**.cpp'",
+				"/Zi",
+				"/EHsc",
+				"/c"
+			],
+			"problemMatcher": [
+				"$msCompile"
+			]
+		},
+		{
+			"type": "shell",
+			"label": "Build engine",
+			"dependsOn": "Compile engine",
+			"command": "lib.exe",
+			"args": [
+				"/out:'${config:buildDir}\\${config:projectName}.lib'",
+				"'${config:intermediateDir}\\**.obj'"
+			],
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}

@@ -1,0 +1,59 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Clean game",
+			"command": "Remove-Item –path ${config:buildDir} -include *.obj, *.exe, *.pdb, *.ilk -recurse -ErrorAction Ignore",
+			"problemMatcher": []
+		},
+		{
+			"type": "shell",
+			"label": "Compile game",
+			"command": "cl.exe",
+			"args": [
+				"/Fo'${config:intermediateDir}\\'",
+				"/Fd'${config:buildDir}\\${config:projectName}'",
+				"/I'${config:includeDir}'",
+				"/I'..\\engine\\include'",
+				"${config:sourceDir}\\**.cpp",
+				"/Zi",
+				"/EHsc",
+				"/c"
+			],
+			"presentation": {
+				"clear": true
+			},
+			"problemMatcher": [
+				"$msCompile"
+			]
+		},
+		{
+			"type": "shell",
+			"label": "Build game",
+			"dependsOn": "Compile game",
+			"command": "link.exe",
+			"args": [
+				"/out:'${config:buildDir}\\${config:projectName}.exe'",
+				"'${config:intermediateDir}\\**.obj'",
+				"..\\engine\\build\\engine.lib",
+				"/DEBUG"
+			],
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Run game",
+			"dependsOn": "Build game",
+			"command": "build\\game.exe",
+			"args": [],
+			"problemMatcher": []
+		}
+	]
+}

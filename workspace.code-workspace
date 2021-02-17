@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "Engine",
+			"path": "engine"
+		},
+		{
+			"name": "Game",
+			"path": "game"
+		}
+	],
+	"settings": {}
+}

@@ -1,0 +1,7 @@
+{
+	"projectName" : "game",
+	"buildDir" : "build\\",
+	"intermediateDir" : "build\\intermediate",
+	"sourceDir" : "src",
+	"includeDir" : "include"
+}
