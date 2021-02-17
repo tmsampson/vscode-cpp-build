@@ -51,7 +51,7 @@
 			"type": "shell",
 			"label": "Run game",
 			"dependsOn": "Build game",
-			"command": "build\\game.exe",
+			"command": "${config:buildDir}\\${config:projectName}.exe",
 			"args": [],
 			"problemMatcher": []
 		}
